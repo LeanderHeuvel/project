@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import csv
 import tensorflow as tf
+import random
 
 data = []
 data_labels = []
@@ -32,9 +33,13 @@ x=16
 y=16
 
 combined = list(zip(data, data_labels))
-#random.shuffle(combined)
+random.shuffle(combined)
 
-#data_x, data_y = zip(*combined)
+data_x, data_y = zip(*combined)
+data_x_train = np.asarray(data_x[:200])
+data_y_train = np.asarray(data_y[:200])
+data_x_test  = np.asarray(data_y[200:])
+data_x_train = np.asarray(data_y[200:])
 #plt.imshow(np.reshape(data[170],(x,y)))
 def convert_labels(data_labels):
     text_labels = []
@@ -48,7 +53,7 @@ def convert_labels(data_labels):
 #text_labels = convert_labels(data_labels)
 
 #from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
+#mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 
 x = tf.placeholder(tf.float32, [None, 256])
 
@@ -68,7 +73,7 @@ sess = tf.InteractiveSession()
 tf.global_variables_initializer().run()
 print('training model...')
 for _ in range(1000):
-  batch_xs, batch_ys = mnist.train.next_batch(100)
+  #batch_xs, batch_ys = mnist.train.next_batch(100)
   sess.run(train_step, feed_dict={x: data_x, y_: data_y})
   
 #correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
