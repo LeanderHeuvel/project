@@ -30,9 +30,11 @@ with open('semeion.data.txt') as inputfile:
 #[float(i) for i in data]
 x=16
 y=16
-data_x = np.asarray(data)
-data_y = np.asarray(data_labels)
 
+combined = list(zip(data, data_labels))
+#random.shuffle(combined)
+
+#data_x, data_y = zip(*combined)
 #plt.imshow(np.reshape(data[170],(x,y)))
 def convert_labels(data_labels):
     text_labels = []
@@ -46,11 +48,11 @@ def convert_labels(data_labels):
 #text_labels = convert_labels(data_labels)
 
 #from tensorflow.examples.tutorials.mnist import input_data
-#mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
+mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 
 x = tf.placeholder(tf.float32, [None, 256])
 
-W = tf.Variable(tf.zeros([1593, 256]))
+W = tf.Variable(tf.zeros([256, 10]))
 b = tf.Variable(tf.zeros([10]))
 
 y = tf.nn.softmax(tf.matmul(x, W) + b)
@@ -66,7 +68,7 @@ sess = tf.InteractiveSession()
 tf.global_variables_initializer().run()
 print('training model...')
 for _ in range(1000):
-  #batch_xs, batch_ys = mnist.train.next_batch(100)
+  batch_xs, batch_ys = mnist.train.next_batch(100)
   sess.run(train_step, feed_dict={x: data_x, y_: data_y})
   
 #correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
