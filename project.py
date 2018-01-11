@@ -36,10 +36,10 @@ combined = list(zip(data, data_labels))
 random.shuffle(combined)
 
 data_x, data_y = zip(*combined)
-data_x_train = np.asarray(data_x[:200])
-data_y_train = np.asarray(data_y[:200])
+data_x_train = np.asarray(data_x[:1393])
+data_y_train = np.asarray(data_y[:1393])
 data_x_test  = np.asarray(data_y[200:])
-data_x_train = np.asarray(data_y[200:])
+data_x_test = np.asarray(data_y[200:])
 #plt.imshow(np.reshape(data[170],(x,y)))
 def convert_labels(data_labels):
     text_labels = []
@@ -54,7 +54,7 @@ def convert_labels(data_labels):
 
 #from tensorflow.examples.tutorials.mnist import input_data
 #mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
-
+#mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 x = tf.placeholder(tf.float32, [None, 256])
 
 W = tf.Variable(tf.zeros([256, 10]))
