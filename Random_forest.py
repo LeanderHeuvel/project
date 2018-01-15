@@ -41,5 +41,9 @@ for i in range(1,200,5):
     #print (j/1393)
     accuracies.append(j/1393)
     depths.append(i)
+    
+    feature_importances = clf.feature_importances_
+    plt.imshow(np.reshape(feature_importances,(16,16)))
+    plt.show()
 plt.plot(depths,accuracies)
     
