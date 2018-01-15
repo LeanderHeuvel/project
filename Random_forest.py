@@ -69,7 +69,7 @@ accuracies = []
 depths = []
 for i in range(1,200,5):
     print(i)
-    clf = RandomForestClassifier(max_depth=None, n_estimators=i, max_features=10) 
+    clf = RandomForestClassifier(max_depth=None, n_estimators=i, max_features=10, n_jobs=-1) 
     clf.fit(pj.data_x_train, data_y_train_ints)
 
     feature_importances = clf.feature_importances_
