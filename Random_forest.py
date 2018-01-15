@@ -28,7 +28,7 @@ for _ in range (0,NR_ITERS):
         predicted_ys = clf.predict(data.x_test)
         #print (predicted_ys)
     
-        j = 0
+        j = 0 #to calculate accuracy
         for x in range(0,1393):
             if predicted_ys[x] == data.y_test_ints[x]:
                 j+=1
@@ -39,7 +39,7 @@ for _ in range (0,NR_ITERS):
        # feature_importances = clf.feature_importances_
         #plt.imshow(np.reshape(feature_importances,(16,16)))
         #plt.show()
-all_accs.append(accuracies)
+    all_accs.append(accuracies)
 all_accs = np.array(all_accs)
 all_accs = all_accs.T
 all_accs = all_accs.tolist()
@@ -51,7 +51,5 @@ for i in range(0,40):
     avg_accs = avg_accs.T
     avg_accs = avg_accs.tolist()
 
-#avgs_temp =.9935391241923905, 0.9935391241923905, 0.832735104091888, 0.9712849964106246, 0.9813352476669059, 0.9842067480258435, 0.9899497487437185, 0.990667623833453, 0.990667623833453, 0.9949748743718593, 0.9921033740129217, 0.994256999282125, 0.9935391241923905, 0.9935391241923905, 0.9928212491026561, 0.9928212491026561, 0.9949748743718593, 0.9928212491026561, 0.994256999282125, 0.9921033740129217, 0.9921033740129217, 0.9949748743718593, 0.9935391241923905, 0.9913854989231874, 0.9935391241923905, 0.994256999282125, 0.994256999282125, 0.9921033740129217, 0.9935391241923905, 0.994256999282125, 0.9928212491026561, 0.9935391241923905, 0.9928212491026561, 0.994256999282125, 0.9949748743718593, 0.9928212491026561, 0.9935391241923905, 0.9935391241923905, 0.9921033740129217, 0.9935391241923905, 0.994256999282125, 0.9949748743718593]
-
 plt.plot(depths, avg_accs)
-#plt.xlabels(depths)
+#todo, plot fatsoenlijk mooi maken
