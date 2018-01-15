@@ -4,55 +4,10 @@ Created on Thu Dec 14 14:16:10 2017
 @author: leanderheuvel
 """
 
-import matplotlib.pyplot as plt
 import numpy as np
-import csv
 import tensorflow as tf
 import random
-
-data_x = []
-data_y = []
-with open('semeion.data.txt') as inputfile:
-    for row in csv.reader(inputfile):
-        i=0
-        digit = []
-        label = []
-        for element in row[0].strip().split(' '):
-            if i<256:
-                digit.append(float(element))
-            else:
-                label.append(float(element))
-            i+=1
-        data_x.append(digit)
-        data_y.append(label)
-
-#[float(i) for i in data]
-x=16
-y=16
-
-np.asarray(data_x)
-np.asarray(data_y)
-
-combined = list(zip(data_x, data_y))
-random.shuffle(combined)
-
-data_x, data_y = zip(*combined)
-data_x_train = np.asarray(data_x[:1393])
-data_y_train = np.asarray(data_y[:1393])
-data_x_test  = np.asarray(data_x[200:])
-data_y_test = np.asarray(data_y[200:])
-
-#plt.imshow(np.reshape(data[170],(x,y)))
-def convert_labels(data_labels):
-    text_labels = []
-    for digit in data_labels:
-        i=0
-        for value in digit:
-            if value==1:
-                text_labels.append(i)
-            i+=1
-    return text_labels
-#text_labels = convert_labels(data_labels)
+import Semeion_data_loader as data
 
 #from tensorflow.examples.tutorials.mnist import input_data
 #mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
@@ -80,8 +35,8 @@ def next_batch(size):
     batch_y = np.empty([100,10])
     for s in range(size):
         index = random.randint(0,1392)
-        batch_x[s,] = data_x_train[index]
-        batch_y[s,] = data_y_train[index]
+        batch_x[s,] = data.x_train[index]
+        batch_y[s,] = data.y_train[index]
     return batch_x, batch_y
         
 
@@ -92,4 +47,4 @@ for _ in range(1500):
 correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
-print(sess.run(accuracy, feed_dict={x: data_x_test, y_: data_y_test}))
+print(sess.run(accuracy, feed_dict={x: data.x_test, y_: data.y_test}))
