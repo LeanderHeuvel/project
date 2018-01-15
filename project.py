@@ -33,7 +33,7 @@ y=16
 np.asarray(data_x)
 np.asarray(data_y)
 
-combined = list(zip(data, data_labels))
+combined = list(zip(data_x, data_y))
 random.shuffle(combined)
 
 data_x, data_y = zip(*combined)
