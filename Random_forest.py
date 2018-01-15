@@ -14,36 +14,41 @@ import Semeion_data_loader as data
 
 clf = RandomForestClassifier(max_depth=40, n_jobs=-1, random_state=0, n_estimators=250)
 clf.fit(data.x_train, data.y_train_ints)
-'''
-RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini', 
-                       max_depth=2, max_features='auto', max_leaf_nodes=None, 
-                       min_impurity_decrease=0.0, min_impurity_split=None, 
-                       min_samples_leaf=1, min_samples_split=8, 
-                       min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1, 
-                       oob_score=False, random_state=0, verbose=0, warm_start=False)
-'''
-#print (clf.feature_importances_)
-predicted_ys = clf.predict(data.x_test)
+
+NR_ITERS = 2
 accuracies = []
 depths = []
-for i in range(1,200,5):
-    #print(i)
-    clf = RandomForestClassifier(max_depth=None, n_estimators=i, max_features=10, n_jobs=-1) 
-    clf.fit(data.x_train, data.y_train_ints)
-
-    predicted_ys = clf.predict(data.x_test)
-    #print (predicted_ys)
-
-    j = 0
-    for x in range(0,1393):
-        if predicted_ys[x] == data.y_test_ints[x]:
-            j+=1
-    #print (j/1393)
-    accuracies.append(j/1393)
-    depths.append(i)
+all_accs = []
+for _ in range (0,NR_ITERS):
+    for i in range(1,200,5):
+        #print(i)
+        clf = RandomForestClassifier(max_depth=None, n_estimators=i, max_features=10, n_jobs=-1) 
+        clf.fit(data.x_train, data.y_train_ints)
     
-    feature_importances = clf.feature_importances_
-    plt.imshow(np.reshape(feature_importances,(16,16)))
-    plt.show()
-plt.plot(depths,accuracies)
+        predicted_ys = clf.predict(data.x_test)
+        #print (predicted_ys)
+    
+        j = 0
+        for x in range(0,1393):
+            if predicted_ys[x] == data.y_test_ints[x]:
+                j+=1
+            #print (j/1393)
+        accuracies.append(j/1393)
+        depths.append(i)
+    
+       # feature_importances = clf.feature_importances_
+        #plt.imshow(np.reshape(feature_importances,(16,16)))
+        #plt.show()
+    all_accs.append(accuracies)
+all_accs = np.array(all_accs)
+all_accs = all_accs.T
+all_accs.tolist()
+avg_accs = []
+for i in range(0,80):
+    avg_accs.append(sum(all_accs[i])/NR_ITERS)
+avg_accs = np.array(avg_accs)
+avg_accs = avg_accs.T
+avg_accs = avg_accs.tolist()
+    
+plt.plot(depths,avg_accs)
     
