@@ -80,7 +80,7 @@ print('training model...')
 accuracies=[]
 with tf.Session() as sess:
   sess.run(tf.global_variables_initializer())
-  for i in range(5000):
+  for i in range(30000):
     batch_xs, batch_ys = next_batch(50)
     #batch = mnist.train.next_batch(50)
     if i % 100 == 0:
