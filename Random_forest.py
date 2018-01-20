@@ -49,8 +49,4 @@ for i in range(0,40):
     avg_accs = avg_accs.tolist()
 
 plt.plot(estimators, avg_accs)
-plt.x_label("nr. of trees")
 #todo, plot fatsoenlijk mooi maken
-
-
-plt.plot(estimators, accuracies)
