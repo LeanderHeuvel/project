@@ -10,8 +10,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import Semeion_data_loader as data
 
-
-
 clf = RandomForestClassifier(max_depth=40, n_jobs=-1, random_state=0, n_estimators=250)
 clf.fit(data.x_train, data.y_train_ints)
 NR_ITERS = 20 #one iteration is run entirely over the train and test sets
@@ -21,7 +19,7 @@ for _ in range (0,NR_ITERS):
     accuracies = [] # list of the accuracies of one iteration
     for i in range(1,200,5):
     #print(i)
-        clf = RandomForestClassifier(max_depth=None, n_estimators=50, max_features=i, n_jobs=-1) 
+        clf = RandomForestClassifier(max_depth=None, n_estimators=120, max_features=i, n_jobs=-1) 
         clf.fit(data.x_train, data.y_train_ints)
         
         predicted_ys = clf.predict(data.x_test)
@@ -52,9 +50,3 @@ for i in range(0,40):
     avg_accs = avg_accs.tolist()
 
 plt.plot(features, avg_accs)
-plt.x_label("nr. of trees")
-    #todo, plot fatsoenlijk mooi maken
-    
-
-plt.plot(features, accuracies)
-plt.show()
