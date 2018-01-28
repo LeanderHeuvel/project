@@ -3,7 +3,7 @@
 """
 Created on Mon Jan 15 09:07:06 2018
 
-@author: leanderheuvel
+@author: loeserven
 """
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
@@ -25,7 +25,7 @@ for _ in range (0,NR_ITERS):
         predicted_ys = clf.predict(data.x_test)
         #print (predicted_ys)
 
-        j = 0 #to calculate accuracy
+        j = 0.0 #to calculate accuracy
         for x in range(0,1393):
             if predicted_ys[x] == data.y_test_ints[x]:
                 j+=1
@@ -45,8 +45,8 @@ all_accs = all_accs.tolist()
 avg_accs = []
 for i in range(0,40):
     avg_accs.append(sum(all_accs[i])/NR_ITERS)
-    avg_accs = np.array(avg_accs)
-    avg_accs = avg_accs.T
-    avg_accs = avg_accs.tolist()
+avg_accs = np.array(avg_accs)
+avg_accs = avg_accs.T
+avg_accs = avg_accs.tolist()
 
 plt.plot(features, avg_accs)
