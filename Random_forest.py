@@ -33,10 +33,11 @@ for k in range (0,NR_ITERS):
         if len(estimators) < 40:
             estimators.append(i)
     print(k)
+    plt.plot(estimators, accuracies)
    # feature_importances = clf.feature_importances_
     #plt.imshow(np.reshape(feature_importances,(16,16)))
     #plt.show()
-
+'''
     all_accs.append(accuracies)
 all_accs = np.array(all_accs)
 all_accs = all_accs.T
@@ -48,6 +49,7 @@ for i in range(0,40):
     avg_accs = np.array(avg_accs)
     avg_accs = avg_accs.T
     avg_accs = avg_accs.tolist()
+'''
 
-plt.plot(estimators, avg_accs)
+plt.show()
 #todo, plot fatsoenlijk mooi maken
