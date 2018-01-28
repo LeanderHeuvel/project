@@ -153,18 +153,18 @@ sess.run(tf.global_variables_initializer())
 print('training model...')
 accuracies=[]
 
-for i in range(100):
+for i in range(30000):
     batch_xs, batch_ys = next_batch(50)
     if i % 100 == 0:
         result = sess.run([merged,accuracy],feed_dict={x: batch_xs, y_: batch_ys,keep_prob:1.0})     
         print("step %d, training accuracy %g" % (i, result[1]))
         
         writer.add_summary(result[0], i)
-        accuracies.append(accuracy.eval(feed_dict={ x: data.x_test, y_: data.y_test, keep_prob: 1.0}))    
+    accuracies.append(accuracy.eval(feed_dict={ x: data.x_test, y_: data.y_test, keep_prob: 1.0}))    
     train_step.run(feed_dict={x: batch_xs, y_: batch_ys, keep_prob: 0.5})
 
 #run test
-print("done training)
+
 print("test accuracy %g" % accuracy.eval(feed_dict={x: data.x_test, y_: data.y_test, keep_prob: 1.0}))
 plt.plot(accuracies)
 plt.show()
