@@ -17,8 +17,11 @@ all_accs = [] # list of all accuracies over all iterations to calculate averages
 for iteration in range (0,NR_ITERS):
     accuracies = [] # list of the accuracies of one iteration
     for i in range(1,200,5):
-        #print(i)
+    	#for running over the number of trees:
         clf = RandomForestClassifier(max_depth=None, n_estimators=i, max_features=15, n_jobs=-1) 
+        #for running over the maximum features:
+        #clf = RandomForestClassifier(max_depth=None, n_estimators=120, max_features=i, n_jobs=-1)
+        #use one of the "clf = [...]" lines
         clf.fit(data.x_train, data.y_train_ints)
         
         predicted_ys = clf.predict(data.x_test)
@@ -33,9 +36,11 @@ for iteration in range (0,NR_ITERS):
         if len(estimators) < 40:
             estimators.append(i)
     print(iteration)
-   # feature_importances = clf.feature_importances_
-    #plt.imshow(np.reshape(feature_importances,(16,16)))
-    #plt.show()
+    
+# for showing the grid of feature importances:    
+#feature_importances = clf.feature_importances_
+#plt.imshow(np.reshape(feature_importances,(16,16)))
+#plt.show()
 
     all_accs.append(accuracies)
 all_accs = np.array(all_accs)
